@@ -12,7 +12,8 @@ function authInfo(response) {
     if (response.session) {
         console.log('user has logged in:', response.session.mid);
         removeElement('login_button');
-        document.getElementById('main_stage').style.display = "block";
+        //document.getElementById('main_stage').style.display = "block";
+        document.getElementById('table_stage').style.display = "block";
         peacock(response.session.mid, 1);
     }
     else {
@@ -36,7 +37,7 @@ function peacock(root_uid, depth) {
         //gl_mutual_friends = data.root.friends;
         gl_groups = data.groups;
         fill_friend_list(gl_root.friends);
-        peacock_view.plot(gl_root);
+        startPerformance(gl_root);
         return;
     }
     if (root_uid != gl_root.uid) {
@@ -194,8 +195,13 @@ function getWeights(mutual_friends, deep_wall) {
         console.log('finished');
         // TODO: graph builder should be called here
         setTimeout(hideProgressBar(), 500);
-        peacock_view.plot(gl_root);
+        startPerformance(gl_root);
     }
+}
+
+function startPerformance(root) {
+    //peacock_view.plot(root);
+    createFriendsTable(root.friends);
 }
 
 function getWeight(sender_uid, wall) {
