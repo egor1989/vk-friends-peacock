@@ -16,6 +16,7 @@
         <script type="text/javascript" src="http://mbostock.github.com/d3/d3.geom.js"></script>
         
         <script type="text/javascript" src="http://www.jnathanson.com/blog/client/jquery/heatcolor/jquery.heatcolor.0.0.1.pack.js"></script>
+        <script type="text/javascript" src="http://www.datatables.net/release-datatables/extras/FixedColumns/media/js/FixedColumns.js"></script>
 
         <script type="text/javascript" language="javascript" src="js/ui.js"></script>
 
@@ -53,11 +54,11 @@
             VK.init({apiId: 2442580});
             VK.UI.button('login_button');
         </script>
-
-        <div id ="main_stage" style="display: none">
+        <div id ="search_by_id" style="display: none">
             ID: <input id="vk_id" type="text"></input>
             <input value="Построить" type="button" onclick="peacock(document.getElementById('vk_id').value, 1);"></input>
-        
+        </div>
+        <div id ="graph_stage" style="display: none">
             <div class="main">
                 <div class="graph">
                 </div>

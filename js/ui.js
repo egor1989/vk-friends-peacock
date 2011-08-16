@@ -53,7 +53,6 @@ function makeScrollable(wrapper, scrollable) {
 function fill_friend_list(friend_list) {
     if ($('.contact').length > 0)
         return;
-
     friend_list.forEach(function(e) {
 	var mobile = "";
 
