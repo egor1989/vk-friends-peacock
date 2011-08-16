@@ -10,7 +10,7 @@ function addColumns(friends) {
 
 
 function addRows(friends_table, friends) {
-    /*for (i = 0; i < friends.length; i++) {
+    for (i = 0; i < friends.length; i++) {
         // build row
         row = [];
     
@@ -25,12 +25,12 @@ function addRows(friends_table, friends) {
                 if (e.uid === friends[i].friends[k].uid) index = idx;
             });
     
-            row[0] = friends[i];
+            row[0] = "<b><center>" + friends[i].first_name + " " + friends[i].last_name + "</center></b>";
             if (friends[i].friends[k].weight > 0) row[index + 1] = friends[i].friends[k].weight;
         }
     
         friends_table.fnAddData(row);
-    }*/
+    }/*
     var c = $("#friends_table tr:first th").length; 
     var i = 0;
     friends.forEach(function(friend) {
@@ -41,11 +41,11 @@ function addRows(friends_table, friends) {
             new_column.push("<center>"+i+"</center>");
         }
         friends_table.fnAddData(new_column);
-    });
+    });*/
 }
 
 function createFriendsTable(friends) {
-    //var old_table = $('#friends_table').dataTable();
+    //var old_table = $('#friends_table').dataTable({"bSort": false});
     //old_table.fnDestroy();
     addColumns(friends);
     var friends_table = $('#friends_table').dataTable({
