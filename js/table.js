@@ -64,7 +64,7 @@ function createFriendsTable(friends) {
         "bInfo": false,
         "bAutoWidth": false,
         "sScrollX": "100%",
-        "sScrollY": "100%"
+        "sScrollY": "200px"
     });
     
     addRows(gl_friends_table, friends);
@@ -90,4 +90,6 @@ function createFriendsTable(friends) {
         $('td.highlighted', friends_table.fnGetNodes()).removeClass('highlighted');
     });*/
     new FixedColumns( gl_friends_table );
+    new FixedHeader( document.getElementById('friends_table') );
+    //new FixedHeader( gl_friends_table );
 }
