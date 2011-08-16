@@ -21,11 +21,14 @@
         <script type="text/javascript" language="javascript" src="js/progressbar.js"></script>
         <script type="text/javascript" language="javascript" src="js/peacock.js"></script>
         <script type="text/javascript" language="javascript" src="js/plot.js"></script>
+        <script type="text/javascript" language="javascript" src="js/table.js"></script>
         
-        <link type="text/css" rel="stylesheet" href="css/ui.css"/>
-        <link type="text/css" rel="stylesheet" href="css/ui-progressbar.css" />
-
-        <style type="text/css">
+        <style type="text/css" title="currentStyle"> 
+    		@import "css/ui.css";
+			@import "css/table.css";
+            @import "css/ui-progressbar.css";
+		</style> 
+         <style type="text/css">
           path.link {
           fill: none;
           stroke: #9ecae1;
@@ -35,8 +38,7 @@
         </style>
     </head>
 
-    <body onload="initDHTMLAPI(); initProgressBar(); hide('search_by_id')">
-
+    <body onload="initDHTMLAPI(); initProgressBar();" >
         <div id="progressBar">
             <div id="progressBarMsg">Collecting data...</div>
             <div id="sliderWrapper">0%
@@ -44,31 +46,45 @@
             </div>
         </div>
 
-        <div id="login_button" onclick="VK.Auth.login(authInfo, 2);"></div>
-        <script language="javascript">
+        <div id="login_button" onclick="VK.Auth.login(authInfo, 2)"></div>
+        <script type="text/javascript">
             VK.init({apiId: 2442580});
             VK.UI.button('login_button');
         </script>
 
-        <div id ="search_by_id">
+        <div id ="main_stage" style="display: none">
             ID: <input id="vk_id" type="text"></input>
             <input value="Построить" type="button" onclick="peacock(document.getElementById('vk_id').value, 1);"></input>
-        </div>
-
-        <div class="main">
-            <div class="graph">
-            </div>
-
-            <div class="sc_menu_wrapper">
-                <div class="sc_menu">
+        
+            <div class="main">
+                <div class="graph">
+                </div>
+    
+                <div class="sc_menu_wrapper">
+                    <div class="sc_menu">
+                    </div>
                 </div>
             </div>
         </div>
-
-	<div id="vk_like" style="margin-left: 50%;"></div>
-	<script type="text/javascript">
-          VK.Widgets.Like("vk_like", {type: "mini"});
+             
+        <div id="table"> 
+            <table cellpadding="0" cellspacing="0" border="0" class="display" id="example"> 
+                <thead> 
+                    <tr> 
+                    	<th>Column 1</th> 
+                    	<th>Column 2</th> 
+                		<th>Column 3</th> 
+                		<th>Column 4</th> 
+                	</tr> 
+                </thead> 
+                <tbody> 
+                </tbody> 
+            </table> 
+		</div>    
+        
+	    <div id="vk_like" style="margin-left: 50%;"></div>
+	    <script type="text/javascript">
+            VK.Widgets.Like("vk_like", {type: "mini"});
         </script>
-
     </body>
 </html>

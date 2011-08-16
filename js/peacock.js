@@ -12,7 +12,7 @@ function authInfo(response) {
     if (response.session) {
         console.log('user has logged in:', response.session.mid);
         removeElement('login_button');
-        show('search_by_id');
+        document.getElementById('main_stage').style.display = "block";
         peacock(response.session.mid, 1);
     }
     else {
