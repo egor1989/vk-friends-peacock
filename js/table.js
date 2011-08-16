@@ -8,6 +8,9 @@ function addColumns(friends) {
     });
 }
 
+function delColumns() {
+    $("#friends_table tr th").remove();
+}
 
 function addRows(friends_table, friends) {
     for (i = 0; i < friends.length; i++) {
@@ -44,11 +47,16 @@ function addRows(friends_table, friends) {
     });*/
 }
 
+var gl_friends_table = null;
+
 function createFriendsTable(friends) {
-    //var old_table = $('#friends_table').dataTable({"bSort": false});
-    //old_table.fnDestroy();
+    if (gl_friends_table !== null) {
+        gl_friends_table.fnClearTable();
+        gl_friends_table.fnDestroy();
+        delColumns();
+    }
     addColumns(friends);
-    var friends_table = $('#friends_table').dataTable({
+    gl_friends_table = $('#friends_table').dataTable({
         "bPaginate": false,
         "bLengthChange": false,
         "bFilter": true,
@@ -59,7 +67,7 @@ function createFriendsTable(friends) {
         "sScrollY": "100%"
     });
     
-    addRows(friends_table, friends);
+    addRows(gl_friends_table, friends);
     
     $("#friends_table td").heatcolor(
 
@@ -81,5 +89,5 @@ function createFriendsTable(friends) {
     }, function() {
         $('td.highlighted', friends_table.fnGetNodes()).removeClass('highlighted');
     });*/
-    new FixedColumns( friends_table );
+    new FixedColumns( gl_friends_table );
 }

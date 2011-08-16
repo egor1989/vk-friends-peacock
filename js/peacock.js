@@ -8,11 +8,16 @@ var gl_deep_wall = [];
 var gl_groups = 0;
 var gl_loop_object = {start:0, end:10, current:0, interval:null};
 
+function startPerformance(root) {
+    peacock_view.plot(root);
+    createFriendsTable(root.friends);
+}
+
 function authInfo(response) {
     if (response.session) {
         console.log('user has logged in:', response.session.mid);
         removeElement('login_button');
-        //document.getElementById('graph_stage').style.display = "block";
+        document.getElementById('graph_stage').style.display = "block";
         document.getElementById('table_stage').style.display = "block";
         document.getElementById('search_by_id').style.display = "block";
         peacock(response.session.mid, 1);
@@ -198,11 +203,6 @@ function getWeights(mutual_friends, deep_wall) {
         setTimeout(hideProgressBar(), 500);
         startPerformance(gl_root);
     }
-}
-
-function startPerformance(root) {
-    //peacock_view.plot(root);
-    createFriendsTable(root.friends);
 }
 
 function getWeight(sender_uid, wall) {

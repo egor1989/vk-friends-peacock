@@ -145,6 +145,7 @@ table.display tr.heading2 td {
 }
  
 table.display td {
+    border: 1px solid #aaa;
 	padding: 3px 10px;
 }
  
