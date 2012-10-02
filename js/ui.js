@@ -51,6 +51,7 @@ function makeScrollable(wrapper, scrollable) {
 }
 
 function fill_friend_list(friend_list) {
+    console.time('fill_friend_list');
     $('.contact').remove();
     friend_list.forEach(function(e) {
 	var mobile = "";
@@ -64,6 +65,7 @@ function fill_friend_list(friend_list) {
 				+ "<span class='contact_name fl_l'>" + e.first_name + " " + e.last_name + "</span>"
 				+ "</a>");
     });
+    console.timeEnd('fill_friend_list');
 }
 
 $(function() {

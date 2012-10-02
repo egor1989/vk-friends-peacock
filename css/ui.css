@@ -94,8 +94,7 @@ body {
 }
 
 .graph {
-    width: 1200px;
-    height: 600px;
+    height: 1000px;
     overflow: auto;
     /* align: right; */
 }

@@ -1,5 +1,5 @@
 (function() {
-    peacock_view = {};
+    window.peacock_view = {};
     
     var w = screen.availWidth + 200,
         h = screen.availHeight + 200,
@@ -74,11 +74,13 @@
                 });
         });
 
+        console.time('buildingPlot');
         // Plot        
         force
             .nodes(nodes)
             .links(links)
             .start();
+        console.timeEnd('buildingPlot');
         
         var link = vis.selectAll("line.link")
                     .data(links)
@@ -101,7 +103,8 @@
                             return d3.rgb("red").darker(3);
                     })
                     .style("stroke-width", function(d) { return d.weight; });
-        
+
+
         var node = vis.selectAll("g.node")
                     .data(nodes)
                 .enter().append("svg:g")
@@ -112,7 +115,8 @@
                     .attr("width", "30px")
                     .attr("height", "30px")
                     .call(force.drag);
-        
+
+        console.time('appendingUserInfo');
         node.append("svg:a")
             .attr("xlink:href", function(d) { return "http://vk.com/id" + d.uid; })
             .append("svg:text")
@@ -132,8 +136,9 @@
             .attr("y", "-20px")
             .attr("width", function(d) { return d.uid == data.uid ? "100px" : "30px"; })
             .attr("height", function(d) { return d.uid == data.uid ? "100px" : "30px"; });
-    
-          force.on("tick", function(e) {
+        console.timeEnd('appendingUserInfo');
+
+        force.on("tick", function(e) {
               
             var owner;
             
@@ -161,7 +166,7 @@
                 .attr("y2", function(d) { return d.target.y; });
           
           
-           node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+           node.attr( "transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
           });
     };
 

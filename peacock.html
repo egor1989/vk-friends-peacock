@@ -7,13 +7,13 @@
         <title>Friends Peacock</title>
 
         <script type="text/javascript" src="http://userapi.com/js/api/openapi.js?34"></script>
-        
-        <script type="text/javascript" language="javascript" src="js/jquery.js"></script> 
-    	<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script> 
 
-        <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
-        <script type="text/javascript" src="http://mbostock.github.com/d3/d3.layout.js"></script>
-        <script type="text/javascript" src="http://mbostock.github.com/d3/d3.geom.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
+    	<script type="text/javascript" language="javascript" src="js/jquery.dataTables.js"></script>
+        <script src="http://underscorejs.org/underscore-min.js"></script>
+
+        <script type="text/javascript" src="http://d3js.org/d3.v2.min.js"></script>
         
         <script type="text/javascript" src="http://www.jnathanson.com/blog/client/jquery/heatcolor/jquery.heatcolor.0.0.1.pack.js"></script>
         <script type="text/javascript" src="http://www.datatables.net/release-datatables/extras/FixedColumns/media/js/FixedColumns.js"></script>
@@ -23,6 +23,7 @@
 
         <script type="text/javascript" language="javascript" src="js/toggle.js"></script>
         <script type="text/javascript" language="javascript" src="js/progressbar.js"></script>
+        <script type="text/javascript" language="javascript" src="js/peacock2.js"></script>
         <script type="text/javascript" language="javascript" src="js/peacock.js"></script>
         <script type="text/javascript" language="javascript" src="js/plot.js"></script>
         <script type="text/javascript" language="javascript" src="js/table.js"></script>
@@ -52,12 +53,12 @@
 
         <div id="login_button" onclick="VK.Auth.login(authInfo, 2)"></div>
         <script type="text/javascript">
-            VK.init({apiId: 2442580});
+            VK.init({apiId: 2433492});
             VK.UI.button('login_button');
         </script>
         <div id ="search_by_id" style="display: none">
-            ID: <input id="vk_id" type="text"></input>
-            <input value="Построить" type="button" onclick="peacock(document.getElementById('vk_id').value, 1);"></input>
+            ID: <input id="vk_id" type="text">
+            <input value="Построить" type="button" onclick="peacock(document.getElementById('vk_id').value, 1);">
         </div>
         <div id ="graph_stage" style="display: none">
             <div class="main">

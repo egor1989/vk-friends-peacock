@@ -270,6 +270,7 @@ function initProgressBar() {
 }
 
 function showProgressBar() {
+    console.time('loading');
     centerOnWindow("progressBar");
 }
 
@@ -284,6 +285,7 @@ function calcProgress(current, total) {
 }
 
 function hideProgressBar() {
+    console.timeEnd('loading');
     hide("progressBar");
     calcProgress(0, 0);
 }

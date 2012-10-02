@@ -50,6 +50,7 @@ function addRows(friends_table, friends) {
 var gl_friends_table = null;
 
 function createFriendsTable(friends) {
+    console.time('createFriendsTable');
     if (gl_friends_table !== null) {
         gl_friends_table.fnClearTable();
         gl_friends_table.fnDestroy();
@@ -92,4 +93,5 @@ function createFriendsTable(friends) {
     new FixedColumns( gl_friends_table );
     new FixedHeader( document.getElementById('friends_table') );
     //new FixedHeader( gl_friends_table );
+    console.timeEnd('createFriendsTable');
 }
