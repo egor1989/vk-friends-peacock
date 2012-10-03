@@ -31,7 +31,7 @@ PeacockPlot.prototype.fillFriendsList = function() {
             mobile = e.mobile_phone;
         }
 
-        $('div.sc_menu').append("<a title='" + mobile + "'" + "class='contact' href='#' onclick='peacock(" + e.uid  + ", 1);'>"
+        $('div.sc_menu').append("<a title='" + mobile + "'" + "class='contact' href='#' onclick='peacock(" + e.uid  + ", 1); return false;'>"
             + "<img class='contact_photo fl_l' src='" + e.photo + "'/>"
             + "<span class='contact_name fl_l'>" + e.first_name + " " + e.last_name + "</span>"
             + "</a>");
@@ -43,6 +43,11 @@ PeacockPlot.prototype.startPerformance = function() {
     peacock_view.plot(this.root);
 }
 
+PeacockPlot.prototype.stop = function() {
+    console.log('canceled');
+    this.stop = true;
+}
+
 PeacockPlot.prototype.getMutualFriends = function(pos) {
     var self = this;
     if (!pos)
@@ -50,26 +55,26 @@ PeacockPlot.prototype.getMutualFriends = function(pos) {
     var friends = _.pluck(self.root.friends.slice(pos, pos + this.VKExecMaxCalls / 2), 'uid'),
         timerFrom = new Date().getTime();
     VK.Api.call('execute', {
-        code: funcToVKString({root_uid: self.root_uid, friends: friends}, function() {
-            var i = 0,
-                result = [];
-            while (i < friends.length) {
-                var mutual = API.friends.getMutual({
-                    target_uid: friends[i],
-                    source_uid: root_uid,
-                    test_mode: 1
-                });
-                var wall = API.wall.get({
-                    owner_id: friends[i],
-                    count: 100,
-                    filter: "others",
-                    test_mode: 1
-                });
-                result = result + [{uid:friends[i], mutual:mutual, wall: wall}];
-                i = i + 1;
-            }
-            return result;
-        })
+        code: funcToVKString({root_uid: self.root_uid, friends: friends}, 'function () {\
+            var i = 0,\
+                result = [];\
+            while (i < friends.length) {\
+                var mutual = API.friends.getMutual({\
+                    target_uid: friends[i],\
+                    source_uid: root_uid,\
+                    test_mode: 1\
+                });\
+                var wall = API.wall.get({\
+                    owner_id: friends[i],\
+                    count: 100,\
+                    filter: "others",\
+                    test_mode: 1\
+                })@.from_id;\
+                result = result + [{uid:friends[i], mutual:mutual, wall: wall}];\
+                i = i + 1;\
+            }\
+            return result;\
+        }')
     }, function(r) {
         calcProgress(pos, self.root.friends.length);
         // removing ourself and himself from friends
@@ -80,9 +85,16 @@ PeacockPlot.prototype.getMutualFriends = function(pos) {
             self.root.friends[i + pos].gr_id = 0;
         });
         pos += friends.length;
+        if (self.stop)
+            return;
         if (pos < self.root.friends.length) {
             setTimeout(function() {
-                self.getMutualFriends(pos);
+                try {
+                    self.getMutualFriends(pos);
+                } catch (ex) {
+                    console.error('VK error\n%o', ex);
+                    self.getMutualFriends(pos);
+                }
             }, self.timeout - (new Date().getTime() - timerFrom));
         }
         else {
@@ -127,7 +139,10 @@ PeacockPlot.prototype.getUserData = function() {
         self.startPerformance();
         return;
     }
-    showProgressBar();
+
+    showProgressBar(function() {
+        self.stop();
+    });
     VK.Api.call('execute',
         {
             code:funcToVKString({root_uid:root_uid}, function () {
@@ -169,7 +184,7 @@ PeacockPlot.prototype.getWeights = function() {
                     weight: 0
                 };
                 var groups = _.groupBy(wall, function(msg){
-                    return msg.from_id;
+                    return msg;
                 });
                 new_connection.weight = groups[uid] ? groups[uid].length : 0;
                 friend.friends.push(new_connection);
@@ -178,13 +193,8 @@ PeacockPlot.prototype.getWeights = function() {
     });
 }
 
-function peacock(root_uid, depth) {
-    var peacock = new PeacockPlot(root_uid, depth);
-    peacock.getUserData();
-}
-
 function funcToVKString(options, func) {
-    var str = func.toString(),
+    var str = typeof func == 'function' ? func.toString() : func,
         fromPattern = 'function () {',
         from = str.indexOf(fromPattern) + fromPattern.length + 1,
         to = str.length - 1,

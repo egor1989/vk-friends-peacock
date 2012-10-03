@@ -95,7 +95,7 @@ body {
 
 .graph {
     height: 1000px;
-    overflow: auto;
+    overflow: scroll;
     /* align: right; */
 }
 
