@@ -45,7 +45,7 @@ PeacockPlot.prototype.startPerformance = function() {
 
 PeacockPlot.prototype.stop = function() {
     console.log('canceled');
-    this.stop = true;
+    this.isStopping = true;
 }
 
 PeacockPlot.prototype.getMutualFriends = function(pos) {
@@ -85,7 +85,7 @@ PeacockPlot.prototype.getMutualFriends = function(pos) {
             self.root.friends[i + pos].gr_id = 0;
         });
         pos += friends.length;
-        if (self.stop)
+        if (self.isStopping)
             return;
         if (pos < self.root.friends.length) {
             setTimeout(function() {
