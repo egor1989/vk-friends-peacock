@@ -79,7 +79,11 @@ PeacockPlot.prototype.getMutualFriends = function(pos) {
         calcProgress(pos, self.root.friends.length);
         // removing ourself and himself from friends
         $.each(r.response, function(i, val) {
-            self.root.friends[i + pos].mutual = _.without(val.mutual, self.root_uid, val.uid );
+            if (!val.mutual) {
+                self.root.friends[i + pos].mutual = [];
+            } else {
+                self.root.friends[i + pos].mutual = _.without(val.mutual, self.root_uid, val.uid );
+            }
             self.root.friends[i + pos].wall = val.wall ? val.wall.slice(1, 101): [];
             self.root.friends[i + pos].friends = [];
             self.root.friends[i + pos].gr_id = 0;
